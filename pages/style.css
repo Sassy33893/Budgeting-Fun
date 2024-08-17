@@ -9,13 +9,10 @@
     outline: none;
 }
 
-.center-items-v {
-
-}
-
 .center-items {
     display:flex;
     justify-content: center;
+    align-items:center;
 }
 
 #questionBox{
