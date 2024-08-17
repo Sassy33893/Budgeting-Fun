@@ -10,3 +10,15 @@
     display:flex;
     justify-content: center;
 }
+
+@keyframes popUp {
+    from {
+        translate: 0 150w;
+        opacity: 0;
+      }
+    
+      to {
+        translate: 0 0;
+        opacity: 1;
+      }
+  }
