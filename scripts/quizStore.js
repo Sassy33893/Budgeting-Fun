@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let incomeS = document.querySelector('#start-questions');
     let q1 = document.querySelector('.q1');
     let q2 = document.querySelector('.q2');
-    
+    pg=0;
     function updateQuestionsDisplay() {
         if (pg === 0) {
             q1.style.display = "block";

@@ -2,13 +2,11 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-let abc = new Tester(0, 0);
-
 function renderGame(){
     ctx.clearRect(0, 0, 500, 500);
 
     ctx.fillStyle = "red";
-    ctx.fillRect(abc.x, abc.y, 150, 75);
+    ctx.fillRect(0, 0, 150, 75);
     //render all components
 
     requestAnimationFrame(renderGame);
@@ -81,6 +79,7 @@ class Character {
 }
 
 class Button{
+    static listOfButtons;
     x;
     y;
     w;
@@ -95,10 +94,23 @@ class Button{
         this.h = h;
         this.func = func;
         this.text = text;
+        listOfButtons.push(this);
+    }
+
+    static canvasClicked(){
+        
     }
 
     detectClick(xClick, yClick){
-        if (this.x < xClick && xClick this.x)
+        if (this.x < xClick && xClick < this.x + this.w){
+            if(this.y < yClick && yClick < this.y + this.h){
+                this.onClickButton();
+            }
+        }
+    }
+
+    onClickButton(){
+        //do stuff with func
     }
 }
 
@@ -106,6 +118,7 @@ class Button{
 
 //innitiating animation loop
 renderGame();
+
 
 
 
