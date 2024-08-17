@@ -1,15 +1,13 @@
 //.js file to operate the game on the gamepage
 const canvas = document.getElementById("canvas");
-canvas.addEventListener("click", Button.canvasClicked(event));
-
 const ctx = canvas.getContext("2d");
 
 function renderGame(){
     ctx.clearRect(0, 0, 500, 500);
     console.log("running");
     ctx.fillStyle = "red";
-    ctx.fillRect(0, 0, 100, 100);
-    //ctx.fillRect(Math.min(250, Button.x), Math.min(250, Button.y), Math.abs(250 - Button.x), Math.abs(250 - Button.y));
+    //ctx.fillRect(0, 0, 100, 100);
+    ctx.fillRect(Math.min(250, Button.x), Math.min(250, Button.y), Math.abs(250 - Button.x), Math.abs(250 - Button.y));
     //render all components
 
     requestAnimationFrame(renderGame);
@@ -125,8 +123,6 @@ class Button{
 
 //innitiating animation loop
 renderGame();
-
-
 
 
 //Local Storage functions

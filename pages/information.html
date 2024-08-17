@@ -84,6 +84,25 @@
                 </div>  
               </form>  
             </div>  
+            <!-- Question 3 -->
+            <div className={`center-items-v q1 ${pg === 0 ? 'd-block' : 'd-none'}`}>  
+              <form id="questionBox">  
+                <div className="center-items">  
+                  <h1 id="question-start" className="display-3">{questions[0]}</h1>  
+                </div>  
+                <div className="center-items">  
+                  <input  
+                    type="text"  
+                    id="start-questions"  
+                    value={income}  
+                    onChange={(e) => setIncome(e.target.value)}  
+                    onKeyDown={handleKeyDown}  
+                    placeholder="Enter your income"  
+                    className="form-control"  
+                  />  
+                </div>  
+              </form>  
+            </div>  
           </div>  
         );  
       };  

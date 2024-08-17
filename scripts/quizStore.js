@@ -1,3 +1,6 @@
+// Not Being Used!!
+
+
 document.addEventListener('DOMContentLoaded', () => {
     let incomeS = document.querySelector('#start-questions');
     let q1 = document.querySelector('.q1');
