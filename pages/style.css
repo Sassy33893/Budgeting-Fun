@@ -3,9 +3,10 @@
     padding: 15px;
     margin: 15px;
     border-radius: 30px; 
-    border-weight: 0px; 
+    border: 0px solid; 
     background-color:lightgray;
     text-align:center;
+    outline: none;
 }
 
 .center-items-v {
