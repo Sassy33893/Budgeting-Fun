@@ -6,7 +6,7 @@ function renderGame(){
     ctx.clearRect(0, 0, 500, 500);
 
     ctx.fillStyle = "red";
-    ctx.fillRect(0, 0, 150, 75);
+    ctx.fillRect(Math.min(250, event.clientX), Math.min(250, event.clientY), Math.abs(250 - event.clientX), Math.abs(250 - event.clientY));
     //render all components
 
     requestAnimationFrame(renderGame);
@@ -98,7 +98,7 @@ class Button{
     }
 
     static canvasClicked(){
-        
+
     }
 
     detectClick(xClick, yClick){
