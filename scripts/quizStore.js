@@ -8,10 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (income === "" || isNaN(income)) {
                 alert("Please fill in the fields correctly.");
             }
-            
-            else{
-            
 
+            else{
             let h1 = document.createElement('h1');
             h1.textContent = "Income: $" + income;
             h1.style.border = '2px solid #4CAF50';
