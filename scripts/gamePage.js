@@ -1,15 +1,20 @@
 //.js file to operate the game on the gamepage
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+const canvasRect = canvas.getBoundingClientRect();
 
 function renderGame(){
-    ctx.clearRect(0, 0, 500, 500);
-    console.log("running");
+    ctx.clearRect(0, 0, 900, 600);
     ctx.fillStyle = "red";
-    //ctx.fillRect(0, 0, 100, 100);
-    ctx.fillRect(Math.min(250, Button.x), Math.min(250, Button.y), Math.abs(250 - Button.x), Math.abs(250 - Button.y));
-    //render all components
 
+    ctx.fillRect(0, 0, 100, 100);
+
+    for (let i = 0; i < Button.listOfButtons.length; i++){
+        ctx.fillStyle = Button.listOfButtons[i].color;
+        ctx.fillRect(Button.listOfButtons[i].x, Button.listOfButtons[i].y, Button.listOfButtons[i].w, Button.listOfButtons[i].h);
+    }
+
+    //render all components
     requestAnimationFrame(renderGame);
 }
 
@@ -81,37 +86,50 @@ class Character {
 
 class Button{
     static listOfButtons;
-    static x;
-    static y;
     x;
     y;
     w;
     h;
     func;
     text;
+    color;
+    active;
 
-    constructor(x, y, w, h, func, text){
+    constructor(x, y, w, h, func, text, color){
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.func = func;
         this.text = text;
+        this.color = color;
+        active = false;
         listOfButtons.push(this);
     }
 
     static canvasClicked(event){
-        Button.x = event.screenX;
-        Button.y = event.screenY;
-        console.log(Button.x + ", " + Button.y);
+        for (let i = 0; i < Button.listOfButtons.length; i++){
+            if(Button.listOfButtons[i].detectClick(event.screenX, event.screenY)){
+                console.log("yesyes")
+                break;
+            }
+        }
     }
 
     detectClick(xClick, yClick){
         if (this.x < xClick && xClick < this.x + this.w){
             if(this.y < yClick && yClick < this.y + this.h){
-                this.onClickButton();
+                if (this.active){
+                    return true;
+                }
             }
         }
+
+        return false;
+    }
+
+    setActive(bool){
+        this.active = bool;
     }
 
     onClickButton(){
@@ -123,6 +141,24 @@ class Button{
 
 //innitiating animation loop
 renderGame();
+
+let button1 = new Button(100, 100, 100, 50, "asd", "asd");
+button1.setActive = true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Local Storage functions
