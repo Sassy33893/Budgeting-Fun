@@ -7,23 +7,13 @@ let abc = new Tester(0, 0);
 renderGame();
 
 function renderGame(){
-    ctx.clearRect(0, 0, 100, 100);
+    ctx.clearRect(0, 0, 500, 500);
 
     ctx.fillStyle = "red";
     ctx.fillRect(abc.x, abc.y, 150, 75);
     //render all components
 
     requestAnimationFrame(renderGame);
-}
-
-class Tester{
-    x;
-    y;
-
-    constructor(x, y){
-        this.x = x;
-        this.y = y;
-    }
 }
 
 class Event {
@@ -35,18 +25,23 @@ class Event {
 }
 
 class Character {
+    static listOfCharacters = [];
     name;
     money;
     happiness;
     debt; 
     income;
+    image;
 
-    constructor(name){
+    constructor(name, image){
         this.name = name; 
         this.money = 10000;
         this.happiness = 75; 
         this.income = 4000; 
-        this.debt  = 40000; 
+        this.debt  = 40000;
+        this.image = new Image();
+        this.image.src = image;
+        listOfCharacters.push(this);
     }
 
     //Getters 
@@ -82,3 +77,6 @@ class Character {
         this.happiness-=decrease; 
     }
 }
+
+
+//game starting code

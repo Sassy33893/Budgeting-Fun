@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (income === "" || isNaN(income)) {
                 alert("Please fill in the fields correctly.");
             }
+            
+            else{
+            
 
             let h1 = document.createElement('h1');
             h1.textContent = "Income: $" + income;
@@ -26,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let q1 = document.querySelector('#question-start');
             q1.style.display = "none";
-            incomeS.style.display = "none";
+            incomeS.style.display = "none";}
         }
     });
 });
