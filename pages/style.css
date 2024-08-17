@@ -11,6 +11,11 @@
     justify-content: center;
 }
 
+#questionBox{
+    animation-duration:2s;
+    animation-name:popUp;
+}
+
 @keyframes popUp {
     from {
         translate: 0 150w;
@@ -21,4 +26,4 @@
         translate: 0 0;
         opacity: 1;
       }
-  }
+}
