@@ -5,6 +5,8 @@ const ctx = canvas.getContext("2d");
 
 let abc = new Tester(0, 0);
 
+renderGame();
+
 function renderGame(){
     ctx.clearRect(0, 0, 100, 100);
     
