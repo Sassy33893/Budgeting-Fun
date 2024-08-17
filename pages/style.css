@@ -6,6 +6,11 @@
     text-align:center;
 }
 
+.center-items-v {
+    display:flex;
+    align-items:center;
+}
+
 .center-items {
     display:flex;
     justify-content: center;
