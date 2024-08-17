@@ -4,8 +4,6 @@ const ctx = canvas.getContext("2d");
 
 let abc = new Tester(0, 0);
 
-renderGame();
-
 function renderGame(){
     ctx.clearRect(0, 0, 500, 500);
 
@@ -20,7 +18,11 @@ class Event {
     image; 
     option1; 
     option2; 
-    
+    constructor(image, option1,option2){
+        this.image = image; 
+        this.option1 =option1; 
+        this.option2 = option2; 
+    }
     
 }
 
@@ -78,5 +80,51 @@ class Character {
     }
 }
 
+class Button{
+    x;
+    y;
+    w;
+    h;
+    func;
+    text;
+
+    constructor(x, y, w, h, func, text){
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.func = func;
+        this.text = text;
+    }
+
+    detectClick(xClick, yClick){
+        if (this.x < xClick && xClick this.x)
+    }
+}
 
 //game starting code
+
+//innitiating animation loop
+renderGame();
+
+
+
+//Local Storage functions
+function setInt(key, value){
+    localStorage.setItem(key, value.toString())
+}
+function setFloat(key, value){
+    localStorage.setItem(key, value.toString())
+}
+function setString(key, value){
+    localStorage.setItem(key,value);
+}
+function retrieveInt(retrieving){
+    return parseInt(local.storage.getItem(retrieving,10));
+}
+function retrieveFloat(retrieving){
+    return parseFloat(localStorage.getItem(retrieving));
+}
+function retrieveString(retrieving){
+    return localStorage.getItem(retrieving); 
+}
