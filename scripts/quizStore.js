@@ -6,18 +6,29 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') {
             let income = incomeS.value;
             if (income === "" || isNaN(income)) {
-                alert("Please fill in the fields correctly.");}
-            console.log(income);
-        }
-        
-        
-    });
+                alert("Please fill in the fields correctly.");
+            }
 
-    // submit2.addEventListener("click", (e) => {
-    //     e.preventDefault();
-    //     let income = document.getElementById("income").value;
-    //     console.log(income);
-    // });
+            let h1 = document.createElement('h1');
+            h1.textContent = "Income: $" + income;
+            h1.style.border = '2px solid #4CAF50';
+            h1.style.borderRadius = '15px';
+            h1.style.padding = '10px 20px';
+            h1.style.width = '100%';
+            h1.style.textAlign = 'center';
+            h1.style.position = 'absolute';
+            h1.style.top = '10%';
+            h1.style.left = '50%';
+            h1.style.transform = 'translate(-50%, -50%)';
+            h1.style.boxSizing = 'border-box';
+            h1.style.marginBottom = '20px';
+            document.body.appendChild(h1);
+
+            let q1 = document.querySelector('#question-start');
+            q1.style.display = "none";
+            incomeS.style.display = "none";
+        }
+    });
 });
 
 class Budget {
