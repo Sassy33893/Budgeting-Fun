@@ -1,12 +1,15 @@
 //.js file to operate the game on the gamepage
 const canvas = document.getElementById("canvas");
+canvas.addEventListener("click", Button.canvasClicked(event));
+
 const ctx = canvas.getContext("2d");
 
 function renderGame(){
     ctx.clearRect(0, 0, 500, 500);
-
+    console.log("running");
     ctx.fillStyle = "red";
-    ctx.fillRect(Math.min(250, event.clientX), Math.min(250, event.clientY), Math.abs(250 - event.clientX), Math.abs(250 - event.clientY));
+    ctx.fillRect(0, 0, 100, 100);
+    //ctx.fillRect(Math.min(250, Button.x), Math.min(250, Button.y), Math.abs(250 - Button.x), Math.abs(250 - Button.y));
     //render all components
 
     requestAnimationFrame(renderGame);
@@ -23,7 +26,7 @@ class Event {
     }
     
 }
-
+console.log("running");
 class Character {
     static listOfCharacters = [];
     name;
@@ -80,6 +83,8 @@ class Character {
 
 class Button{
     static listOfButtons;
+    static x;
+    static y;
     x;
     y;
     w;
@@ -97,8 +102,10 @@ class Button{
         listOfButtons.push(this);
     }
 
-    static canvasClicked(){
-
+    static canvasClicked(event){
+        Button.x = event.screenX;
+        Button.y = event.screenY;
+        console.log(Button.x + ", " + Button.y);
     }
 
     detectClick(xClick, yClick){
