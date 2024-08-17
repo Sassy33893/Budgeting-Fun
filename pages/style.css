@@ -1,7 +1,12 @@
-#info-questions {
+#start-questions {
     width: 50%; 
     padding: 15px; 
     border-radius: 20px; 
     border: solid 1px; 
     text-align:center;
+}
+
+.center-items {
+    display:flex;
+    justify-content: center;
 }

@@ -2,7 +2,7 @@
 
 document.getElementById("H1").innerHTML = "hello111";
 
-/*
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -89,4 +89,3 @@ class Character {
         this.happiness-=decrease; 
     }
 }
-*/
