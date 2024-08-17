@@ -1,15 +1,15 @@
-console.log("hi");
 document.addEventListener('DOMContentLoaded', () => {
-    let submit1 = document.querySelector('.submitQ1');
+    let incomeS = document.querySelector('#start-questions');
     let submit2 = document.querySelector('.submitQ2');
 
-    submit1.addEventListener("click", (e) => {
-        e.preventDefault();
+    incomeS.addEventListener("keydown", (e) => {
+        if (e.key === 'Enter') {
+            let income = incomeS.value;
+            if (income === "" || isNaN(income)) {
+                alert("Please fill in the fields correctly.");}
+            console.log(income);
+        }
         
-        let income = document.getElementById("income").value;
-        if (income === "" || isNaN(income)) {
-            alert("Please fill in the fields correctly.");}
-        console.log(income);
         
     });
 
