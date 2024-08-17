@@ -3,6 +3,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const canvasRect = canvas.getBoundingClientRect();
 const yOffset = 307;
+const xOffset = canvasRect.left;
 
 let pmn = 0;
 
@@ -112,9 +113,9 @@ class Button{
     }
 
     static canvasClicked(event){
-        console.log("click");
+        console.log(event.screenX + ", " + (event.screenY-yOffset));
         for (let i = 0; i < Button.listOfButtons.length; i++){
-            if(Button.listOfButtons[i].detectClick(event.screenX, event.screenY-yOffset)){
+            if(Button.listOfButtons[i].detectClick(event.screenX-xOffset, event.screenY-yOffset)){
                 Button.listOfButtons[i].onClickButton();
                 break;
             }
@@ -122,8 +123,7 @@ class Button{
     }
 
     static func1(){
-        let button1 = new Button(Math.floor(Math.random()*800 + 50), Math.floor(Math.random()*500 + 50), 50, 50, Button.func1, "asd");
-        button1.setActive = true;
+        console.log("yes");
     }
 
     detectClick(xClick, yClick){
@@ -144,14 +144,14 @@ class Button{
 
     onClickButton(){
         this.func();
-        this.active = false;
+        this.active = true;
     }
 }
 
 //game starting code
 
 //innitiating animation loop
-let button1 = new Button(200, 200, 100, 50, Button.func1, "asd");
+let button1 = new Button(700, 200, 100, 50, Button.func1, "asd");
 button1.setActive = true;
 
 renderGame();
