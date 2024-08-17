@@ -8,9 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     let submit2 = document.querySelector('.submitQ2');
-    submit2 = document.querySelector('.submitQ2');
-    submit2.addEventListener("click", (e) => {
+    submitButton.addEventListener("click", (e) => {
     e.preventDefault();
+    let submit1 = document.querySelector('.submitQ1');
+    income = document.getElementById("income").value;
+    console.log(income)
+    });
 
 }
 
