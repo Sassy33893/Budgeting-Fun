@@ -2,16 +2,22 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const canvasRect = canvas.getBoundingClientRect();
+const yOffset = 307;
+
+let pmn = 0;
 
 function renderGame(){
     ctx.clearRect(0, 0, 900, 600);
     ctx.fillStyle = "red";
 
-    ctx.fillRect(0, 0, 100, 100);
+    ctx.fillRect(pmn, 0, 100, 100);
+
+    pmn++;
 
     for (let i = 0; i < Button.listOfButtons.length; i++){
-        ctx.fillStyle = Button.listOfButtons[i].color;
-        ctx.fillRect(Button.listOfButtons[i].x, Button.listOfButtons[i].y, Button.listOfButtons[i].w, Button.listOfButtons[i].h);
+        if (Button.listOfButtons[i].active){
+            ctx.fillRect(Button.listOfButtons[i].x, Button.listOfButtons[i].y, Button.listOfButtons[i].w, Button.listOfButtons[i].h);
+        }
     }
 
     //render all components
@@ -85,35 +91,39 @@ class Character {
 }
 
 class Button{
-    static listOfButtons;
+    static listOfButtons = [];
     x;
     y;
     w;
     h;
     func;
     text;
-    color;
     active;
 
-    constructor(x, y, w, h, func, text, color){
+    constructor(x, y, w, h, func, text){
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.func = func;
         this.text = text;
-        this.color = color;
-        active = false;
-        listOfButtons.push(this);
+        this.active = true;
+        Button.listOfButtons.push(this);
     }
 
     static canvasClicked(event){
+        console.log("click");
         for (let i = 0; i < Button.listOfButtons.length; i++){
-            if(Button.listOfButtons[i].detectClick(event.screenX, event.screenY)){
-                console.log("yesyes")
+            if(Button.listOfButtons[i].detectClick(event.screenX, event.screenY-yOffset)){
+                Button.listOfButtons[i].onClickButton();
                 break;
             }
         }
+    }
+
+    static func1(){
+        let button1 = new Button(Math.floor(Math.random()*800 + 50), Math.floor(Math.random()*500 + 50), 50, 50, Button.func1, "asd");
+        button1.setActive = true;
     }
 
     detectClick(xClick, yClick){
@@ -133,17 +143,18 @@ class Button{
     }
 
     onClickButton(){
-        //do stuff with func
+        this.func();
+        this.active = false;
     }
 }
 
 //game starting code
 
 //innitiating animation loop
-renderGame();
-
-let button1 = new Button(100, 100, 100, 50, "asd", "asd");
+let button1 = new Button(200, 200, 100, 50, Button.func1, "asd");
 button1.setActive = true;
+
+renderGame();
 
 
 

@@ -14,11 +14,41 @@
   <body style="margin:auto;">
     <a href="index.html"><button style="position: fixed;bottom: 10px;right: 10px;" class="btn btn-danger">Back</button></a>
     <div id="root"></div>
-    <script type="text/babel">  
+    <script type="text/babel"> 
+      let incomeNames = [];
+      let incomeAmounts = []; 
+      let expenseNames = []; 
+      let expenseAmounts = []; 
+
+      localStorage.setItem('incomeNames', JSON.stringify(incomeNames));
+      localStorage.setItem('incomeAmounts', JSON.stringify(incomeAmounts));
+      localStorage.setItem('expenseNames', JSON.stringify(expenseNames));
+      localStorage.setItem('expenseAmounts', JSON.stringify(expenseAmounts));
+
+      //adds income to the list of incomes (in local storage)
+      function addIncome(name, num){
+        let tempIncomeNames = JSON.parse(localStorage.getItem('incomeNames')) || [];
+        let tempIncomeAmount = JSON.parse(localStorage.getItem('incomeAmounts')) || [];
+        tempIncomeNames.push(name);
+        tempIncomeAmount.push(num);
+        localStorage.setItem('incomeNames', JSON.stringify(tempIncomeNames));
+        localStorage.setItem('incomeAmounts', JSON.stringify(tempIncomeAmount));
+      }
+      
+      //function to retrieve a specific income
+      function retrieveIncome(num){
+        let tempIncomeNames = JSON.parse(localStorage.getItem('incomeNames')) || [];
+        let tempIncomeAmount = JSON.parse(localStorage.getItem('incomeAmounts')) || [];
+      }
+      
+    
+
+
       const { useState } = React;  
       
       const QuestionForm = () => {  
-        const [income, setIncome] = useState("");  
+        const [income, setIncome] = useState([]); 
+        const [incomeAmount, setIncomeA] = useState([]);  
         const [pg, setPg] = useState(0);  
         const [questionTwoAnswer, setQuestionTwoAnswer] = useState("");
       
@@ -32,7 +62,8 @@
             e.preventDefault();
             
             if (pg === 0) {  
-              if (!isNaN(income) && income.trim() !== "") {  
+              if (!isNaN(income) && income.trim() !== "") {
+                 
                 localStorage.setItem('income', income);  
                 setPg(1);  
               } else {  
@@ -64,10 +95,21 @@
                     value={income}  
                     onChange={(e) => setIncome(e.target.value)}  
                     onKeyDown={handleKeyDown}  
-                    placeholder="Enter your income"  
+                    placeholder="Enter your income name"  
                     className="form-control"  
                   />  
-                </div>  
+                </div>
+                <div className="center-items">  
+                  <input  
+                    type="text"  
+                    id="start-questions"  
+                    value={incomeAmount}  
+                    onChange={(e) => setIncomeA(e.target.value)}  
+                    onKeyDown={handleKeyDown}  
+                    placeholder="Enter your income amount"  
+                    className="form-control"  
+                  />
+                </div>
               </form>  
             </div>  
       
