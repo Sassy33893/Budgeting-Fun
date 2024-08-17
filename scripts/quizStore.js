@@ -7,13 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(income)
     });
 
-    let submit2 = document.querySelector('.submitQ1');
+    let submit2 = document.querySelector('.submitQ2');
     submit2 = document.querySelector('.submitQ2');
     submit2.addEventListener("click", (e) => {
     e.preventDefault();
-    let submit1 = document.querySelector('.submitQ1');
-    income = document.getElementById("income").value;
-    });
+
 }
 
 class Budget{
