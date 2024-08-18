@@ -41,6 +41,8 @@ function initializeExpenses(){
 
 function initializeDebt(){
     let numOfDebt = ((JSON.parse(localStorage.getItem('debtName')) || []).length);
+    console.log("num of debt");
+    console.log(numOfDebt);
     for(let i =0; i<numOfDebt;i++ ){
         let newRow = document.createElement('tr');
         let debt = retrieveDebt(i);
@@ -60,6 +62,7 @@ function initializeDebt(){
         newRow.append(type);
         debtTable.append(newRow);
         console.log("initializing debt");
+        console.log(debt);
         console.log(JSON.parse(localStorage.getItem('incomeNames')) || []);
         console.log((JSON.parse(localStorage.getItem('incomeNames')) || []).length);
     }
@@ -88,7 +91,7 @@ function addGoal(){
             goal.innerHTML = "";
         }
 
-        goal.innerHTML += '<div id="1" class="goal row"><div class="col-4">' + inp2 +'</div><div class="col-4"></div><div class="col-4">' + inp + '</div></div>'
+        goal.innerHTML += '<div class="goal row"><div class="col-4">' + inp2 +'</div><div class="col-4"></div><div class="col-4">' + inp + '</div></div>'
     }
 }
 
@@ -102,6 +105,19 @@ function removeGoal(){
     }
 }
 
+function randomColorGenerator(){
+    let colors = [];
+
+    for(let i = 0; i < JSON.parse(localStorage.getItem('incomeNames')).length; i++){
+        colors.push('rgba(' + Math.floor(Math.random()*256) + ', '+ Math.floor(Math.random()*256) +', '+ Math.floor(Math.random()*256) +', 0.2)');
+    }
+    return colors;
+}
+
+
+let colors = randomColorGenerator();
+console.log(colors);
+
 //Expense graph code
 let incomeChart = new Chart(document.getElementById("incomeChart").getContext("2d"),
 
@@ -112,59 +128,38 @@ let incomeChart = new Chart(document.getElementById("incomeChart").getContext("2
             datasets:[{
                 data:JSON.parse(localStorage.getItem('incomeAmounts')) || [],
             }],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)'
-            ],
+            backgroundColor: {colors}
+            ,
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)'
-            ]
+            ],
+            borderwidth: 1
         },
+        options: {
+            maintainAspectRatio: false,
+        }
 
     }
 
 );
+let expenseChart = new Chart(document.getElementById("expenseChart").getContext("2d"),
+{
+    type:"pie",
+    data:{
+        labels: JSON.parse(localStorage.getItem('incomeNames')) || [],
+        datasets:[{
+            data:JSON.parse(localStorage.getItem('incomeAmounts')) || [],
+        }],
+        backgroundColor:[]
 
-//myLineChart.resize(width, height);
-/*
-//this stuff is declaration (can maybe go at the top of this page)
-const expenseCanvas = document.getElementById("ExpenseChart");
-const expenseCtx = canvas.getContext("2d");
-*/
-/*function renderChart(){
-    ctx.clearRect(0, 0, 900, 600);
+        ,
+        borderColor: [
+        ]
+    },
+    options: {
+        maintainAspectRatio: false,
+    }
 
-    //render all components
-    requestAnimationFrame(renderChart);
-}*/
+}
 
-//renderChart();
+);
+

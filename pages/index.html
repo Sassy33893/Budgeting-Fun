@@ -1,15 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="display:grid; min-height:100%;">
   <style>
-    body {
-      background-image: url('../Images/home.jpg'); 
-      background-size: cover;
-      background-attachment: fixed;
-      background-position: top center;
-      background-repeat: no-repeat;
-      height: auto;
-      overflow-y: auto;
-    }
     </style>
   <head>
     <meta charset="UTF-8">
@@ -17,42 +8,13 @@
     <title>Home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgb(69, 0, 0);">
-      <a class="navbar-brand" href="index.html">Build-A-Budget</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
-          <a class="nav-link" href="spread.html">My Spread</a>
-        </div>
-      </div>
-    </nav>
-    <div class="jumbotron jumbotron-fluid" style="background-color:rgb(69, 0, 0); color: white; text-align: center;">
+  <body style="background-color: rgb(69,0,0); margin:auto;">
+    <div class="jumbotron jumbotron-fluid" style="background-color:rgb(69, 0, 0); color: white; text-align: center; display:flex; justify-content:center; align-items:center;">
       <div class="container">
-        <h1 class="display-4">Welcome!</h1>
-        <p class="lead">Making</p>
-        <button type="button" class="btn btn-outline-danger" onclick="window.location.href='information.html'">Get Started</button>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col" style = "padding:30px;">
-          
-        </div>
-        <div class="col-6">
-        
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          
-        </div>
-        <div class="col" style = "padding:20px;">
-          
+        <h1 class="display-1">Build-A-Budget</h1>
+        <p class="lead" style="font-size:30px;">Making Finances Easy!</p>
+        <button type="button" class="btn btn-outline-danger" style="font-size:20px;" onclick="window.location.href='information.html'">Get Started</button>
+        <button type="button" class="btn btn-outline-danger" style="font-size:20px;" onclick="window.location.href='spread.html'">My Spread</button>
       </div>
     </div>
 

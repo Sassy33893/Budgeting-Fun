@@ -29,6 +29,14 @@
         const [debtType, setDebtType] = useState("");
         const [debtInt, setDebtInt] = useState("");
         const [pg, setPg] = useState(0);
+
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+          item.addEventListener('click', function(event) {
+            const selectedType = event.target.getAttribute('data-value');
+            console.log('Selected Debt Type:', selectedType);
+              setDebtType(selectedType);
+          });
+        });
       
         const questions = [  
           "What is your yearly salary?",  
@@ -42,7 +50,13 @@
             handleNext();
           }  
         };
-
+        const handleSkip = () => {
+          if (pg !== 2) {
+            setPg(pg + 1);
+          } else {
+            window.location.href = "spread.html";
+          }
+        };
         const handleAddIncome = () => {
           if (!isNaN(incomeAmount) && incomeAmount.trim() !== "") {
             addIncome(incomeName, incomeAmount);
@@ -57,7 +71,7 @@
           if (!isNaN(expenseAmount) && expenseAmount.trim() !== "") {
             addExpense(expenseName,expenseAmount);
             setExpenseName(""); 
-            setExpenseAmount("");
+            setExpenseAmount("") ;
           } else {
             alert("Please enter a valid expense amount.");  
           }
@@ -135,6 +149,15 @@
                   >
                     Add Another Source
                   </button>
+
+                  <button 
+                    type="button" 
+                    className="btn btn-secondary mr"
+                    onClick={handleSkip}
+                  >
+                    Skip
+                  </button>
+
                   <button 
                     type="button" 
                     className="btn btn-secondary"
@@ -180,6 +203,15 @@
                   >
                     Add Another +
                   </button>
+
+                  <button 
+                    type="button" 
+                    className="btn btn-secondary mr"
+                    onClick={handleSkip}
+                  >
+                    Skip
+                  </button>
+
                   <button 
                     type="button" 
                     className="btn btn-secondary"
@@ -218,6 +250,17 @@
                     className="form-control mb-3 start-questions"  
                   />
                 </div>
+
+                <div class="dropdown center-items">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Choose Your Debt Type
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" data-value="simple-interest">Simple Interest</a>
+                    <a class="dropdown-item" href="#" data-value="compound-interest">Compound Interest</a>
+                  </div>
+                </div>
+
                 <div className="center-items">
                   <input  
                     type="text"  
@@ -229,34 +272,27 @@
                     className="form-control mb-3 start-questions"  
                   />
                 </div>
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Choose Your Debt Type
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item">Simple Interest</a>
-                    <a class="dropdown-item">Compound Compound</a>
-                  </div>
-                </div>
-                <div className="center-items">
-                  <input  
-                    type="text"  
-                    id="debt-Type"  
-                    value={debtType}  
-                    onChange={(e) => setDebtType(e.target.value)}  
-                    onKeyDown={handleKeyDown}  
-                    placeholder="Enter your debt type"  
-                    className="form-control mb-3 start-questions"  
-                  />
-                </div>
+                
+                
+
+
                 <div className="center-items"> 
                   <button 
                     type="button" 
                     className="btn btn-secondary mr"
-                    onClick={addDebt(debtName, debtAmount, debtInt, debtType)}
+                    onClick={handleAddDebt}
                   >
                     Add Another
                   </button>
+
+                  <button 
+                    type="button" 
+                    className="btn btn-secondary mr"
+                    onClick={handleSkip}
+                  >
+                    Skip
+                  </button>
+
                   <button 
                     type="button" 
                     className="btn btn-secondary"

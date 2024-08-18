@@ -43,9 +43,12 @@ table {
 }
 
 .goal {
-    background-color:rgb(36, 0, 0);
+    background-color: gold;
+    color:black;
     width:100%;
     padding:20px;
+    margin-bottom:3px;
+    border-radius: 10px;
 }
 
 .goals {
@@ -59,4 +62,11 @@ table {
 
 hr {
     background-color:white;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap:3px;
 }
