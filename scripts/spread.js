@@ -103,7 +103,7 @@ function removeGoal(){
 }
 
 //Expense graph code
-let incomeChart = new Chart(document.getElementById("incomeChart"),
+let incomeChart = new Chart(document.getElementById("incomeChart").getContext("2d"),
 
     {
         type:"pie",
@@ -116,9 +116,6 @@ let incomeChart = new Chart(document.getElementById("incomeChart"),
     }
 
 );
-
-incomeChart.resize(200, 400);
-incomeChart.update('resize');
 
 //myLineChart.resize(width, height);
 /*

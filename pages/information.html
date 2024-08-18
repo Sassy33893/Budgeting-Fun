@@ -63,20 +63,12 @@
           }
         };
         const handleAddDebt = () =>{
-          let tempDebtName = JSON.parse(localStorage.getItem('debtName')) || [];
-          let tempDebtAmount = JSON.parse(localStorage.getItem('debtAmount')) || [];
-          let tempDebtRate = JSON.parse(localStorage.getItem('debtRate')) || [];
-          let tempDebtType = JSON.parse(localStorage.getItem('debtType')) || [];
-          
-          tempDebtName.push(name);
-          tempDebtAmount.push(amount);
-          tempDebtRate.push(rate);
-          tempDebtType.push(type);
-          
-          localStorage.setItem('debtName', JSON.stringify(tempDebtName));
-          localStorage.setItem('debtAmount', JSON.stringify(tempDebtAmount));
-          localStorage.setItem('debtRate', JSON.stringify(tempDebtRate));
-          localStorage.setItem('debtType', JSON.stringify(tempDebtType));
+          addDebt(debtName, debtAmount, debtInt, debtType);
+          setDebtName(""); 
+          setDebtAmount("");
+          setDebtInt("");
+          setDebtType("");
+
         }
 
         const handleNext = () => {
@@ -226,13 +218,35 @@
                     className="form-control mb-3"  
                   />
                 </div>
+                <div className="center-items">
+                  <input  
+                    type="text"  
+                    id="debt-rate"  
+                    value={debtInt}  
+                    onChange={(e) => setDebtInt(e.target.value)}  
+                    onKeyDown={handleKeyDown}  
+                    placeholder="Enter your debt monthly interest rate"  
+                    className="form-control mb-3"  
+                  />
+                </div>
+                <div className="center-items">
+                  <input  
+                    type="text"  
+                    id="debt-Type"  
+                    value={debtType}  
+                    onChange={(e) => setDebtType(e.target.value)}  
+                    onKeyDown={handleKeyDown}  
+                    placeholder="Enter your debt type"  
+                    className="form-control mb-3"  
+                  />
+                </div>
                 <div className="center-items"> 
                   <button 
                     type="button" 
                     className="btn btn-secondary mr"
-                    onClick={handleAddExpense}
+                    onClick={addDebt(debtName, debtAmount, debtInt, debtType)}
                   >
-                    Add Another +
+                    Add Another
                   </button>
                   <button 
                     type="button" 
@@ -241,7 +255,7 @@
                   >
                     Next
                   </button>
-                </div>  
+                </div>
                   
               </form>  
             </div>
