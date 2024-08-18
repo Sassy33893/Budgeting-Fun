@@ -82,7 +82,7 @@ class Question{
         let funcParam = this.happiness + "," + this.money;
         
         //add function txt
-        new Button(x, y, w, h, Button.addAmount, text, text2, funcParam);
+        return new Button(x, y, w, h, Button.addAmount, text, text2, funcParam);
     }
 }
 
@@ -202,7 +202,7 @@ button1.moveInterval(500, 500);
 
 let question = new Question("Hello :D", 15, 15);
 let buttonq1 = question.questionButton(100, 100, 100, 50);
-buttonq1.moveInterval(200, 700);
+buttonq1.moveInterval(700, 500);
 
 renderGame();
 

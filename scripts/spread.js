@@ -19,6 +19,24 @@ function initializeIncomes(){
         console.log((JSON.parse(localStorage.getItem('incomeNames')) || []).length);
     }
 }
+function initializeExpenses(){
+    let numOfExpenses = (JSON.parse(localStorage.getItem('expenseAmounts')) || []).length;
+    for(let i = 0; i<numOfExpenses;i++){
+        let newRow = document.createElement('tr');
+        let expense = retrieveIncome(i);
+        let name = (document.createElement('td'));
+        name.textContent = expense.name; 
+        let amount = document.createElement('td');
+        amount.textContent = expense.amount; 
+
+        newRow.appendChild(name);
+        newRow.appendChild(amount);
+        incomeTable.appendChild(newRow);
+        console.log("initializing incomes");
+        console.log(JSON.parse(localStorage.getItem('incomeNames')) || []);
+        console.log((JSON.parse(localStorage.getItem('incomeNames')) || []).length);
+    }
+}
 document.addEventListener('DOMContentLoaded', initializeIncomes);
 
 let goal = document.getElementById("goals");
@@ -42,10 +60,18 @@ function addGoal(){
             goal.innerHTML = "";
         }
 
-        goal.innerHTML += '<div id="1" class="goal row"><div class="col-4">' + inp2 +'</div><div class="col-4"></div><div class="col-4">' + inp + '</div</div>'
+        goal.innerHTML += '<div id="1" class="goal row"><div class="col-4">' + inp2 +'</div><div class="col-4"></div><div class="col-4">' + inp + '</div></div>'
     }
 }
 
+function removeGoal(){
+    if(goalsNum == 0){
+        alert("Not Possible.");
+    }
+    else{
+        goal.innerHTML = goal.innerHTML.slice()
+    }
+}
 
 //Expense graph code
 new Chart(document.getElementById("incomeChart"),
