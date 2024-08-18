@@ -1,6 +1,6 @@
 let incomeTable = document.getElementById("incomes");
 let expenseTable = document.getElementById("expenses")
-
+let debtTable = document.getElementById("debts");
 
 function initializeIncomes(){
     let numOfIncomes = (JSON.parse(localStorage.getItem('incomeAmounts')) || []).length;
@@ -38,8 +38,35 @@ function initializeExpenses(){
         console.log((JSON.parse(localStorage.getItem('incomeNames')) || []).length);
     }
 }
+
+function initializeDebt(){
+    let numOfDebt = ((JSON.parse(localStorage.getItem('debtName')) || []).length);
+    for(let i =0; i<numOfDebt;i++ ){
+        let newRow = document.createElement('tr');
+        let debt = retrieveDebt(i);
+
+        let name = (document.createElement('td'));
+        name.textContent = debt.name; 
+        let amount = document.createElement('td');
+        amount.textContent = debt.amount; 
+        let rate = document.createElement('td');
+        rate.textContent = debt.rate; 
+        let type = document.createElement('td');
+        type.textContent = debt.type;
+
+        newRow.append(name);
+        newRow.append(amount);
+        newRow.append(rate);
+        newRow.append(type);
+        debtTable.append(newRow);
+        console.log("initializing debt");
+        console.log(JSON.parse(localStorage.getItem('incomeNames')) || []);
+        console.log((JSON.parse(localStorage.getItem('incomeNames')) || []).length);
+    }
+}
 document.addEventListener('DOMContentLoaded', initializeIncomes);
 document.addEventListener('DOMContentLoaded', initializeExpenses);
+document.addEventListener('DOMContentLoaded',initializeDebt);
 let goal = document.getElementById("goals");
 let goalsNum = 0;
 
@@ -90,7 +117,8 @@ let incomeChart = new Chart(document.getElementById("incomeChart"),
 
 );
 
-incomeChart.resize(400, 400);
+incomeChart.resize(200, 400);
+//incomeChart.update('resize');
 
 //myLineChart.resize(width, height);
 /*

@@ -27,6 +27,7 @@
         const questions = [  
           "What is your yearly salary?",  
           "What are your yearly expenses?",
+          "What are you debts?"
         ];  
 
         const handleKeyDown = (e) => {  
@@ -55,6 +56,22 @@
             alert("Please enter a valid expense amount.");  
           }
         };
+        const handleAddDebt = () =>{
+          let tempDebtName = JSON.parse(localStorage.getItem('debtName')) || [];
+          let tempDebtAmount = JSON.parse(localStorage.getItem('debtAmount')) || [];
+          let tempDebtRate = JSON.parse(localStorage.getItem('debtRate')) || [];
+          let tempDebtType = JSON.parse(localStorage.getItem('debtType')) || [];
+          
+          tempDebtName.push(name);
+          tempDebtAmount.push(amount);
+          tempDebtRate.push(rate);
+          tempDebtType.push(type);
+          
+          localStorage.setItem('debtName', JSON.stringify(tempDebtName));
+          localStorage.setItem('debtAmount', JSON.stringify(tempDebtAmount));
+          localStorage.setItem('debtRate', JSON.stringify(tempDebtRate));
+          localStorage.setItem('debtType', JSON.stringify(tempDebtType));
+        }
 
         const handleNext = () => {
           if (pg === 0) {
@@ -67,11 +84,19 @@
           } else if (pg === 1) {
             if (!isNaN(expenseAmount) && expenseAmount.trim() !== "") {
               handleAddExpense();
-              window.location.assign("spread.html");
+              setPg(2);
+            } else {
+              alert("Please enter a valid expense amount.");
+            }
+          } else if (pg === 2) {
+            if (!isNaN(expenseAmount) && expenseAmount.trim() !== "") {
+              handleAddDebt();
+              window.display.href = "spread.html"
             } else {
               alert("Please enter a valid expense amount.");
             }
           }
+
         };
       
         return (
@@ -89,8 +114,10 @@
                     onChange={(e) => setIncomeName(e.target.value)}  
                     onKeyDown={handleKeyDown}  
                     placeholder="Enter your income name"  
-                    className="form-control mb-3"  
+                    className="form-control mb-3 start-questions"  
                   />
+                  </div>
+                  <div className="center-items">  
                   <input  
                     type="text"  
                     id="income-amount"  
@@ -98,21 +125,22 @@
                     onChange={(e) => setIncomeAmount(e.target.value)}  
                     onKeyDown={handleKeyDown}  
                     placeholder="Enter your income amount"  
-                    className="form-control mb-3"  
+                    className="form-control mb-3 start-questions"  
                   />  
+                </div>
+                <div className="center-items"> 
                   <button 
                     type="button" 
-                    className="btn btn-primary"
+                    className="btn btn-secondary mr"
                     onClick={handleAddIncome}
                   >
-                    Add Another +
+                    Add Another Source
                   </button>
                   <button 
                     type="button" 
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                     onClick={handleNext}
-                  >
-                    Next
+                  >Next
                   </button>
                 </div>  
               </form>  
@@ -131,8 +159,56 @@
                     onChange={(e) => setExpenseName(e.target.value)}  
                     onKeyDown={handleKeyDown}  
                     placeholder="Enter your expense name"  
+                    className="form-control mb-3 start-questions"  
+                  />  
+                </div>
+                <div className="center-items">
+                  <input  
+                    type="text"  
+                    id="expense-amount"  
+                    value={expenseAmount}  
+                    onChange={(e) => setExpenseAmount(e.target.value)}  
+                    onKeyDown={handleKeyDown}  
+                    placeholder="Enter your expense amount"  
+                    className="form-control mb-3 start-questions"  
+                  />  
+                </div>
+                <div className="center-items"> 
+                  <button 
+                    type="button" 
+                    className="btn btn-primary mr"
+                    onClick={handleAddExpense}
+                  >
+                    Add Another +
+                  </button>
+                  <button 
+                    type="button" 
+                    className="btn btn-primary"
+                    onClick={handleNext}
+                  >
+                    Next
+                  </button>
+                </div>  
+              </form>  
+            </div>
+
+            <div className={`center-items-v q2 ${pg === 2 ? 'd-block' : 'd-none'}`}>  
+              <form id="questionBox">  
+                <div className="center-items">  
+                  <h1 id="question-start" className="display-3">{questions[2]}</h1>  
+                </div>  
+                <div className="center-items">  
+                  <input  
+                    type="text"  
+                    id="expense-name"  
+                    value={expenseName}  
+                    onChange={(e) => setExpenseName(e.target.value)}  
+                    onKeyDown={handleKeyDown}  
+                    placeholder="Enter your expense name"  
                     className="form-control mb-3"  
                   />  
+                </div>
+                <div className="center-items">
                   <input  
                     type="text"  
                     id="expense-amount"  
@@ -158,7 +234,7 @@
                   </button>
                 </div>  
               </form>  
-            </div>  
+            </div>
           </div>  
         );  
       };  
