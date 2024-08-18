@@ -4,16 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-      
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Question Form</title>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   </head>
   <body style="margin:auto;">
     <a href="index.html"><button style="position: fixed;bottom: 10px;right: 10px;" class="btn btn-danger">Back</button></a>
     <div id="root"></div>
-    <script type="text/babel" src="MyComponent.jsx"> </script>  
+    <script type="text/babel">  
+      const { useState } = React;  
+      
+      const QuestionForm = () => {  
+        const [incomeName, setIncomeName] = useState("");  
+        const [incomeAmount, setIncomeAmount] = useState("");
+        const [pg, setPg] = useState(0);  
+        const [questionTwoAnswer, setQuestionTwoAnswer] = useState("");
+      
+        const questions = [  
+          "What is your yearly salary?",  
+          "What are your yearly expenses?",
+        ];  
+      
+        const handleKeyDown = (e) => {  
+          if (e.key === 'Enter') {  
+            e.preventDefault();
+            
+            if (pg === 0) {  
+              if (!isNaN(incomeAmount) && incomeAmount.trim() !== "") {  
+                localStorage.setItem('incomeName', incomeName);
+                localStorage.setItem('incomeAmount', incomeAmount);  
+                setPg(1);  
+              } else {
+                alert("Please enter a valid income amount.");  
+              }  
+            } else if (pg === 1) {  
+              if (!isNaN(questionTwoAnswer) && questionTwoAnswer.trim() !== "") {  
+                localStorage.setItem('questionTwoAnswer', questionTwoAnswer);  
+                window.location.href = "spread.html";
+              } else {  
+                alert("Please enter a valid answer.");
+              }
+            }  
+          }  
+        };  
+      
+        return (
+          <div>  
+            <div className={`center-items-v q1 ${pg === 0 ? 'd-block' : 'd-none'}`}>  
+              <form id="questionBox">  
+                <div className="center-items">  
+                  <h1 id="question-start" className="display-3">{questions[0]}</h1>  
+                </div>  
+                <div className="center-items">  
+                  <input  
+                    type="text"  
+                    id="income-name"  
+                    value={incomeName}  
+                    onChange={(e) => setIncomeName(e.target.value)}  
+                    onKeyDown={handleKeyDown}  
+                    placeholder="Enter your income name"  
+                    className="form-control"  
+                  />
+                  <input  
+                    type="text"  
+                    id="income-amount"  
+                    value={incomeAmount}  
+                    onChange={(e) => setIncomeAmount(e.target.value)}  
+                    onKeyDown={handleKeyDown}  
+                    placeholder="Enter your income amount"  
+                    className="form-control"  
+                  />  
+                </div>  
+              </form>  
+            </div>  
+      
+            <div className={`center-items-v q2 ${pg === 1 ? 'd-block' : 'd-none'}`}>  
+              <form id="questionBox">  
+                <div className="center-items">  
+                  <h1 id="question-start" className="display-3">{questions[1]}</h1>  
+                </div>  
+                <div className="center-items">  
+                  <input  
+                    type="text"  
+                    id="expenses-answer"  
+                    value={questionTwoAnswer}  
+                    onChange={(e) => setQuestionTwoAnswer(e.target.value)}  
+                    onKeyDown={handleKeyDown}  
+                    placeholder="Enter your answer"  
+                    className="form-control"  
+                  />  
+                </div>  
+              </form>  
+            </div>  
+          </div>  
+        );  
+      };  
+      
+      ReactDOM.render(<QuestionForm />, document.getElementById('root'));  
+    </script>  
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
   </body>

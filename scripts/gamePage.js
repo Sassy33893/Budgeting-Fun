@@ -17,7 +17,13 @@ function renderGame(){
 
     for (let i = 0; i < Button.listOfButtons.length; i++){
         if (Button.listOfButtons[i].active){
+            //ctx.drawImage(Button.buttonImg, Button.listOfButtons[i].y, Button.listOfButtons[i].w, Button.listOfButtons[i].h);
+            ctx.fillStyle = "red";
             ctx.fillRect(Button.listOfButtons[i].x, Button.listOfButtons[i].y, Button.listOfButtons[i].w, Button.listOfButtons[i].h);
+            ctx.fillStyle = "black";
+            ctx.font = "40px ariel";
+            ctx.textAlign = "center";
+            ctx.fillText(Button.listOfButtons[i].text, Button.listOfButtons[i].x, Button.listOfButtons[i].y + Button.listOfButtons[i].h, Button.listOfButtons[i].w);
         }
     }
 
@@ -93,22 +99,27 @@ class Character {
 
 class Button{
     static listOfButtons = [];
+    static buttonImg = new Image().src = "https://i.pinimg.com/originals/46/74/64/4674648aeb254ed1cf5dfef687efea79.png";
     x;
     y;
     w;
     h;
     func;
     text;
+    text2;
     active;
+    interval;
 
-    constructor(x, y, w, h, func, text){
+    constructor(x, y, w, h, func, text, text2){
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.func = func;
         this.text = text;
+        this.text2 = text2;
         this.active = true;
+        this.interval = null;
         Button.listOfButtons.push(this);
     }
 
@@ -134,8 +145,31 @@ class Button{
                 }
             }
         }
-
         return false;
+    }
+
+    setMoveInterval(x, y){
+        //random placement, then make a move interval
+    }
+
+    moveInterval(x, y){
+        this.interval = setInterval(() => {
+            //make sure that THIS works
+            if (x < this.x){
+                this.x += Math.floor((x - this.x)/10);
+                this.y += Math.floor((y - this.y)/10);
+            }
+            else{
+                this.x += Math.ceil((x - this.x)/10);
+                this.y += Math.ceil((y - this.y)/10);
+            }
+
+            console.log(this.x + ", " + this.y);
+
+            if (this.x == x && this.y == y){
+                clearInterval(this.interval);
+            }
+        }, 50, x, y);
     }
 
     setActive(bool){
@@ -144,15 +178,17 @@ class Button{
 
     onClickButton(){
         this.func();
-        this.active = true;
+        this.active = false;
     }
 }
 
 //game starting code
 
 //innitiating animation loop
-let button1 = new Button(700, 200, 100, 50, Button.func1, "asd");
+let button1 = new Button(100, 100, 100, 50, Button.func1, "asdsdddddddddddddWWWWWWWWWWWWWWWWWcccccccccccccccccc");
 button1.setActive = true;
+
+button1.moveInterval(500, 500);
 
 renderGame();
 

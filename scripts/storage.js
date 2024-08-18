@@ -1,6 +1,6 @@
 //
-let incomeNames = [];
-let incomeAmounts = []; 
+let incomeNames = ["hu","he"];
+let incomeAmounts = [100,1000]; 
 
 let expenseNames = []; 
 let expenseAmounts = []; 
@@ -34,6 +34,7 @@ function retrieveIncome(num){
         amount:tempIncomeAmount[num]  
     };
 }
+
 //adds expense to the list of expenses (in local storage)
 function addExpense(name, num){
     let tempExpenseNames = JSON.parse(localStorage.getItem('expenseNames')) || [];
