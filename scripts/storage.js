@@ -1,6 +1,6 @@
-//
-let incomeNames = ["hu","he"];
-let incomeAmounts = [100,1000]; 
+
+let incomeNames = [];
+let incomeAmounts = []; 
 
 let expenseNames = []; 
 let expenseAmounts = []; 

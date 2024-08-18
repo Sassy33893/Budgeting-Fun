@@ -21,9 +21,11 @@ function renderGame(){
             ctx.fillStyle = "red";
             ctx.fillRect(Button.listOfButtons[i].x, Button.listOfButtons[i].y, Button.listOfButtons[i].w, Button.listOfButtons[i].h);
             ctx.fillStyle = "black";
-            ctx.font = "40px ariel";
+            ctx.font = "20px ariel";
             ctx.textAlign = "center";
-            ctx.fillText(Button.listOfButtons[i].text, Button.listOfButtons[i].x, Button.listOfButtons[i].y + Button.listOfButtons[i].h, Button.listOfButtons[i].w);
+            ctx.textBaseline = "middle";
+            ctx.fillText(Button.listOfButtons[i].text, Button.listOfButtons[i].x + Button.listOfButtons[i].w/2, Button.listOfButtons[i].y + Button.listOfButtons[i].h/4, Button.listOfButtons[i].w);
+            ctx.fillText(Button.listOfButtons[i].text, Button.listOfButtons[i].x + Button.listOfButtons[i].w/2, Button.listOfButtons[i].y + 3*Button.listOfButtons[i].h/4, Button.listOfButtons[i].w);
         }
     }
 
@@ -42,8 +44,43 @@ class Event {
     }
     
 }
-console.log("running");
+
 class Character {
+    static listOfCharacters = [];
+    image;
+    questions;
+
+    constructor(name, image, question1, question2){
+        this.image = new Image();
+        this.image.src = image;
+        listOfCharacters.push(this);
+        this.questions = [];
+    }
+}
+
+class Question{
+    text;
+    happiness;
+    money;
+
+    constructor(text, happiness, money){
+        this.text = text;
+        this.happiness = happiness;
+        this.moeny = money;
+    }
+
+    questionButton(x, y, w, h){
+        new Button(x, y, w, h, func, text, text2);
+    }
+}
+
+class Player{
+    static money;
+    static happiness;
+
+}
+
+/*class Character {
     static listOfCharacters = [];
     name;
     money;
@@ -56,7 +93,7 @@ class Character {
         this.name = name; 
         this.money = 10000;
         this.happiness = 75; 
-        this.income = 4000; 
+        this.income = 4000;
         this.debt  = 40000;
         this.image = new Image();
         this.image.src = image;
@@ -95,7 +132,7 @@ class Character {
     decreaseHappiness(decrease){
         this.happiness-=decrease; 
     }
-}
+}*/
 
 class Button{
     static listOfButtons = [];
@@ -185,7 +222,7 @@ class Button{
 //game starting code
 
 //innitiating animation loop
-let button1 = new Button(100, 100, 100, 50, Button.func1, "asdsdddddddddddddWWWWWWWWWWWWWWWWWcccccccccccccccccc");
+let button1 = new Button(100, 100, 100, 50, Button.func1, "asdsddddd", "waasfdfsdf");
 button1.setActive = true;
 
 button1.moveInterval(500, 500);
