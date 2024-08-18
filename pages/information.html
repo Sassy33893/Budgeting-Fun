@@ -3,53 +3,81 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Question Form</title>
   </head>
   <body style="margin:auto;">
+    <h1>MIMI</h1>
     <a href="index.html"><button style="position: fixed;bottom: 10px;right: 10px;" class="btn btn-danger">Back</button></a>
     <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>  
+    <script src="../scripts/storage.js"></script> 
     <script type="text/babel">  
       const { useState } = React;  
       
       const QuestionForm = () => {  
         const [incomeName, setIncomeName] = useState("");  
         const [incomeAmount, setIncomeAmount] = useState("");
-        const [pg, setPg] = useState(0);  
-        const [questionTwoAnswer, setQuestionTwoAnswer] = useState("");
+        const [expenseName, setExpenseName] = useState("");  
+        const [expenseAmount, setExpenseAmount] = useState("");
+        const [pg, setPg] = useState(0);
       
         const questions = [  
           "What is your yearly salary?",  
           "What are your yearly expenses?",
         ];  
-      
+
         const handleKeyDown = (e) => {  
           if (e.key === 'Enter') {  
             e.preventDefault();
-            
-            if (pg === 0) {  
-              if (!isNaN(incomeAmount) && incomeAmount.trim() !== "") {  
-                localStorage.setItem('incomeName', incomeName);
-                localStorage.setItem('incomeAmount', incomeAmount);  
-                setPg(1);  
-              } else {
-                alert("Please enter a valid income amount.");  
-              }  
-            } else if (pg === 1) {  
-              if (!isNaN(questionTwoAnswer) && questionTwoAnswer.trim() !== "") {  
-                localStorage.setItem('questionTwoAnswer', questionTwoAnswer);  
-                window.location.href = "spread.html";
-              } else {  
-                alert("Please enter a valid answer.");
-              }
-            }  
+            handleNext();
           }  
-        };  
+        };
+
+        const handleAddIncome = () => {
+          if (!isNaN(incomeAmount) && incomeAmount.trim() !== "") {
+            let incomes = JSON.parse(localStorage.getItem('incomes')) || [];
+            incomes.push({ incomeName, incomeAmount });
+            localStorage.setItem('incomes', JSON.stringify(incomes));
+            setIncomeName(""); 
+            setIncomeAmount("");
+          } else {
+            alert("Please enter a valid income amount.");  
+          }
+        };
+
+        const handleAddExpense = () => {
+          if (!isNaN(expenseAmount) && expenseAmount.trim() !== "") {
+            let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+            expenses.push({ expenseName, expenseAmount });
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+            setExpenseName(""); 
+            setExpenseAmount("");
+          } else {
+            alert("Please enter a valid expense amount.");  
+          }
+        };
+
+        const handleNext = () => {
+          if (pg === 0) {
+            if (!isNaN(incomeAmount) && incomeAmount.trim() !== "") {
+              handleAddIncome();
+              setPg(1);
+            } else {
+              alert("Please enter a valid income amount.");
+            }
+          } else if (pg === 1) {
+            if (!isNaN(expenseAmount) && expenseAmount.trim() !== "") {
+              handleAddExpense();
+              window.location.assign("spread.html");
+            } else {
+              alert("Please enter a valid expense amount.");
+            }
+          }
+        };
       
         return (
           <div>  
@@ -66,7 +94,7 @@
                     onChange={(e) => setIncomeName(e.target.value)}  
                     onKeyDown={handleKeyDown}  
                     placeholder="Enter your income name"  
-                    className="form-control"  
+                    className="form-control mb-3"  
                   />
                   <input  
                     type="text"  
@@ -75,8 +103,22 @@
                     onChange={(e) => setIncomeAmount(e.target.value)}  
                     onKeyDown={handleKeyDown}  
                     placeholder="Enter your income amount"  
-                    className="form-control"  
+                    className="form-control mb-3"  
                   />  
+                  <button 
+                    type="button" 
+                    className="btn btn-primary"
+                    onClick={handleAddIncome}
+                  >
+                    Add Another +
+                  </button>
+                  <button 
+                    type="button" 
+                    className="btn btn-primary"
+                    onClick={handleNext}
+                  >
+                    Next
+                  </button>
                 </div>  
               </form>  
             </div>  
@@ -89,13 +131,36 @@
                 <div className="center-items">  
                   <input  
                     type="text"  
-                    id="expenses-answer"  
-                    value={questionTwoAnswer}  
-                    onChange={(e) => setQuestionTwoAnswer(e.target.value)}  
+                    id="expenses-name"  
+                    value={expenseName}  
+                    onChange={(e) => setExpenseName(e.target.value)}  
                     onKeyDown={handleKeyDown}  
-                    placeholder="Enter your answer"  
-                    className="form-control"  
+                    placeholder="Enter your expense name"  
+                    className="form-control mb-3"  
                   />  
+                  <input  
+                    type="text"  
+                    id="expense-amount"  
+                    value={expenseAmount}  
+                    onChange={(e) => setExpenseAmount(e.target.value)}  
+                    onKeyDown={handleKeyDown}  
+                    placeholder="Enter your expense amount"  
+                    className="form-control mb-3"  
+                  />  
+                  <button 
+                    type="button" 
+                    className="btn btn-primary"
+                    onClick={handleAddExpense}
+                  >
+                    Add Another +
+                  </button>
+                  <button 
+                    type="button" 
+                    className="btn btn-primary"
+                    onClick={handleNext}
+                  >
+                    Next
+                  </button>
                 </div>  
               </form>  
             </div>  

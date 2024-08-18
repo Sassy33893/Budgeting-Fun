@@ -28,6 +28,13 @@ function renderGame(){
             ctx.fillText(Button.listOfButtons[i].text, Button.listOfButtons[i].x + Button.listOfButtons[i].w/2, Button.listOfButtons[i].y + 3*Button.listOfButtons[i].h/4, Button.listOfButtons[i].w);
         }
     }
+    ctx.fillStyle = "black"
+    ctx.fillRect(800, 500, 100, 100);
+    ctx.fillStyle = "white"
+    ctx.fillRect(810, 510, 80, 80);
+
+    ctx.fillText("Happiness: " + Player.happiness, 830, 520);
+    ctx.fillText("Money: " + Player.Money, 860, 520);
 
     //render all components
     requestAnimationFrame(renderGame);
@@ -42,7 +49,6 @@ class Event {
         this.option1 =option1; 
         this.option2 = option2; 
     }
-    
 }
 
 class Character {
@@ -66,73 +72,25 @@ class Question{
     constructor(text, happiness, money){
         this.text = text;
         this.happiness = happiness;
-        this.moeny = money;
+        this.money = money;
     }
 
     questionButton(x, y, w, h){
-        new Button(x, y, w, h, func, text, text2);
+        let text = this.text.slice(0, this.text.length/2);
+        let text2 = this.text.slice(this.text.length/2, this.text.length);
+
+        let funcParam = this.happiness + "," + this.money;
+        
+        //add function txt
+        new Button(x, y, w, h, Button.addAmount, text, text2, funcParam);
     }
 }
 
 class Player{
-    static money;
-    static happiness;
-
+    static money = 0;
+    static happiness = 0;
+    static inventory = [];
 }
-
-/*class Character {
-    static listOfCharacters = [];
-    name;
-    money;
-    happiness;
-    debt; 
-    income;
-    image;
-
-    constructor(name, image){
-        this.name = name; 
-        this.money = 10000;
-        this.happiness = 75; 
-        this.income = 4000;
-        this.debt  = 40000;
-        this.image = new Image();
-        this.image.src = image;
-        listOfCharacters.push(this);
-    }
-
-    //Getters 
-    getName(){
-        return(this.name);
-    }
-    getMoney(){
-        return(this.money);
-    }
-    getHappiness(){
-        return(this.happiness);
-    }
-
-    //Money functions
-    spendMoney(moneySpent){
-        this.money-=moneySpend;
-    }
-    earnMoney(moneyEarned){
-        this.money+=moneyEarned;
-    }
-    increaseIncome(increase){
-        this.income+=increase;
-    }
-    decreaseIncome(decrease){
-        this.income-=decrease; 
-    }
-
-    //Happiness functions 
-    increaseHappiness(increase){
-        this.happiness+=increase;
-    }
-    decreaseHappiness(decrease){
-        this.happiness-=decrease; 
-    }
-}*/
 
 class Button{
     static listOfButtons = [];
@@ -146,8 +104,9 @@ class Button{
     text2;
     active;
     interval;
+    funcParam;
 
-    constructor(x, y, w, h, func, text, text2){
+    constructor(x, y, w, h, func, text, text2, funcParam){
         this.x = x;
         this.y = y;
         this.w = w;
@@ -157,6 +116,7 @@ class Button{
         this.text2 = text2;
         this.active = true;
         this.interval = null;
+        this.funcParam = funcParam;
         Button.listOfButtons.push(this);
     }
 
@@ -172,6 +132,13 @@ class Button{
 
     static func1(){
         console.log("yes");
+    }
+
+    static addAmount(amount){
+        let amountArray = amount.split(",");
+
+        Player.happiness += amountArray[0];
+        Player.money += amountArray[1];
     }
 
     detectClick(xClick, yClick){
@@ -214,7 +181,13 @@ class Button{
     }
 
     onClickButton(){
-        this.func();
+        if (funcParam == null){
+            this.func();
+        }
+        else{
+            this.func(funcParam);
+        }
+
         this.active = false;
     }
 }
@@ -222,10 +195,14 @@ class Button{
 //game starting code
 
 //innitiating animation loop
-let button1 = new Button(100, 100, 100, 50, Button.func1, "asdsddddd", "waasfdfsdf");
+let button1 = new Button(100, 100, 100, 50, Button.func1, "asdsddddd", "waasfdfsdf", null);
 button1.setActive = true;
 
 button1.moveInterval(500, 500);
+
+let question = new Question("Hello :D", 15, 15);
+let buttonq1 = question.questionButton(100, 100, 100, 50);
+buttonq1.moveInterval(200, 700);
 
 renderGame();
 
