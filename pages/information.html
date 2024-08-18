@@ -22,6 +22,12 @@
         const [incomeAmount, setIncomeAmount] = useState("");
         const [expenseName, setExpenseName] = useState("");  
         const [expenseAmount, setExpenseAmount] = useState("");
+
+        const [debtName, setDebtName] = useState("");
+        const [debtAmount, setDebtAmount] = useState("");
+        const [debtDur, setDebtDur] = useState("");
+        const [debtType, setDebtType] = useState("");
+        const [debtInt, setDebtInt] = useState("");
         const [pg, setPg] = useState(0);
       
         const questions = [  
@@ -89,9 +95,9 @@
               alert("Please enter a valid expense amount.");
             }
           } else if (pg === 2) {
-            if (!isNaN(expenseAmount) && expenseAmount.trim() !== "") {
+            if (!isNaN(debtAmount) && debtAmount.trim() !== "") {
               handleAddDebt();
-              window.display.href = "spread.html"
+              window.display.href = "spread.html";
             } else {
               alert("Please enter a valid expense amount.");
             }
@@ -176,14 +182,14 @@
                 <div className="center-items"> 
                   <button 
                     type="button" 
-                    className="btn btn-primary mr"
+                    className="btn btn-secondary mr"
                     onClick={handleAddExpense}
                   >
                     Add Another +
                   </button>
                   <button 
                     type="button" 
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                     onClick={handleNext}
                   >
                     Next
@@ -200,28 +206,28 @@
                 <div className="center-items">  
                   <input  
                     type="text"  
-                    id="expense-name"  
-                    value={expenseName}  
-                    onChange={(e) => setExpenseName(e.target.value)}  
+                    id="debt-name"  
+                    value={debtName}  
+                    onChange={(e) => setDebtName(e.target.value)}  
                     onKeyDown={handleKeyDown}  
-                    placeholder="Enter your expense name"  
+                    placeholder="Enter your debt name"  
                     className="form-control mb-3"  
                   />  
                 </div>
                 <div className="center-items">
                   <input  
                     type="text"  
-                    id="expense-amount"  
-                    value={expenseAmount}  
-                    onChange={(e) => setExpenseAmount(e.target.value)}  
+                    id="debt-amount"  
+                    value={debtAmount}  
+                    onChange={(e) => setDebtAmount(e.target.value)}  
                     onKeyDown={handleKeyDown}  
-                    placeholder="Enter your expense amount"  
+                    placeholder="Enter your debt amount"  
                     className="form-control mb-3"  
                   />  
                   <button 
                     type="button" 
                     className="btn btn-primary"
-                    onClick={handleAddExpense}
+                    onClick={handleAddDebt}
                   >
                     Add Another +
                   </button>
