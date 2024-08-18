@@ -8,7 +8,6 @@
     <title>Question Form</title>
   </head>
   <body style="margin:auto;">
-    <h1>MIMI</h1>
     <a href="index.html"><button style="position: fixed;bottom: 10px;right: 10px;" class="btn btn-danger">Back</button></a>
     <div id="root"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>  
@@ -39,9 +38,7 @@
 
         const handleAddIncome = () => {
           if (!isNaN(incomeAmount) && incomeAmount.trim() !== "") {
-            let incomes = JSON.parse(localStorage.getItem('incomes')) || [];
-            incomes.push({ incomeName, incomeAmount });
-            localStorage.setItem('incomes', JSON.stringify(incomes));
+            addIncome(incomeName, incomeAmount);
             setIncomeName(""); 
             setIncomeAmount("");
           } else {
@@ -51,9 +48,7 @@
 
         const handleAddExpense = () => {
           if (!isNaN(expenseAmount) && expenseAmount.trim() !== "") {
-            let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
-            expenses.push({ expenseName, expenseAmount });
-            localStorage.setItem('expenses', JSON.stringify(expenses));
+            addExpense(expenseName,expenseAmount);
             setExpenseName(""); 
             setExpenseAmount("");
           } else {
@@ -131,7 +126,7 @@
                 <div className="center-items">  
                   <input  
                     type="text"  
-                    id="expenses-name"  
+                    id="expense-name"  
                     value={expenseName}  
                     onChange={(e) => setExpenseName(e.target.value)}  
                     onKeyDown={handleKeyDown}  

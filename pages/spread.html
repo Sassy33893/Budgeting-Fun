@@ -59,12 +59,24 @@
                 <p>Description</p>
                 <input type="text" style="width:100%" id="desc">
                 <button class="btn btn-danger" style="margin-top:10px;" onclick="addGoal()">Create</button>
+                <button class="btn btn-danger" style="margin-top:10px;" onclick="removeGoal()">Remove First Goal</button>
             </div>
         </div>
     </div>
     <div>
-        <canvas id = "incomeChart" width = "700px" height = "600px" style = "background-color: green;margin-left: 200px;"></canvas>
+        <canvas id = "incomeChart" width = "200px" height = "400px" style = "background-color: green;margin-left: 200px;"></canvas>
     </div>
+    
+    <div class="container">
+        <table id = "debt">
+            <tr>
+                <th>Source of Expenses</th>
+                <th>Amount Lost</th>
+            </tr>
+
+        </table>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
     <script src ="../scripts/storage.js"></script>
     <script src="../scripts/spread.js"> </script> 

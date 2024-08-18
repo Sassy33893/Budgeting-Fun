@@ -5,12 +5,14 @@ function initializeLocalStorage() {
         let incomeAmounts = []; 
         let expenseNames = []; 
         let expenseAmounts = []; 
+
+        
         let debtName = []; 
         let debtAmount = []; 
         let debtRate = [];
         let debtType = []; 
 
-        
+
 
 
         localStorage.setItem('incomeNames', JSON.stringify(incomeNames));

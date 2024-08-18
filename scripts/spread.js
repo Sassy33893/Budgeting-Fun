@@ -1,4 +1,5 @@
 let incomeTable = document.getElementById("incomes");
+let expenseTable = document.getElementById("expenses")
 
 
 function initializeIncomes(){
@@ -23,7 +24,7 @@ function initializeExpenses(){
     let numOfExpenses = (JSON.parse(localStorage.getItem('expenseAmounts')) || []).length;
     for(let i = 0; i<numOfExpenses;i++){
         let newRow = document.createElement('tr');
-        let expense = retrieveIncome(i);
+        let expense = retrieveExpense(i);
         let name = (document.createElement('td'));
         name.textContent = expense.name; 
         let amount = document.createElement('td');
@@ -31,14 +32,14 @@ function initializeExpenses(){
 
         newRow.appendChild(name);
         newRow.appendChild(amount);
-        incomeTable.appendChild(newRow);
-        console.log("initializing incomes");
+        expenseTable.appendChild(newRow);
+        console.log("initializing expenses");
         console.log(JSON.parse(localStorage.getItem('incomeNames')) || []);
         console.log((JSON.parse(localStorage.getItem('incomeNames')) || []).length);
     }
 }
 document.addEventListener('DOMContentLoaded', initializeIncomes);
-
+document.addEventListener('DOMContentLoaded', initializeExpenses);
 let goal = document.getElementById("goals");
 let goalsNum = 0;
 
@@ -69,12 +70,13 @@ function removeGoal(){
         alert("Not Possible.");
     }
     else{
-        goal.innerHTML = goal.innerHTML.slice()
+        goal.innerHTML = goal.innerHTML.slice(goal.innerHTML.indexOf("</div></div>") + 12);
+        goalsNum--;
     }
 }
 
 //Expense graph code
-new Chart(document.getElementById("incomeChart"),
+let incomeChart = new Chart(document.getElementById("incomeChart"),
 
     {
         type:"pie",
@@ -88,15 +90,19 @@ new Chart(document.getElementById("incomeChart"),
 
 );
 
+incomeChart.resize(400, 400);
+
+//myLineChart.resize(width, height);
+/*
 //this stuff is declaration (can maybe go at the top of this page)
 const expenseCanvas = document.getElementById("ExpenseChart");
 const expenseCtx = canvas.getContext("2d");
-
-function renderChart(){
+*/
+/*function renderChart(){
     ctx.clearRect(0, 0, 900, 600);
 
     //render all components
     requestAnimationFrame(renderChart);
-}
+}*/
 
-renderChart();
+//renderChart();
