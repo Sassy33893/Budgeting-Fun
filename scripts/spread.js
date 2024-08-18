@@ -11,6 +11,8 @@ function initializeIncomes(){
         name.textContent = income.name; 
         let amount = document.createElement('td');
         amount.textContent = income.amount; 
+        
+        
 
         newRow.appendChild(name);
         newRow.appendChild(amount);
@@ -115,23 +117,26 @@ function randomColorGenerator(){
 }
 
 
-let colors = randomColorGenerator();
-console.log(colors);
+
 
 //Expense graph code
-let incomeChart = new Chart(document.getElementById("incomeChart").getContext("2d"),
+incomeColors = randomColorGenerator((localStorage.getItem('incomeNames')).length);
+expenseColors = randomColorGenerator((localStorage.getItem('expenseAmounts')).length);
+debtColors = randomColorGenerator((localStorage.getItem('debtName')).length);
+debtColors2 = randomColorGenerator((localStorage.getItem('debtName')).length);
+let incomeChart = new Chart(document.getElementById("incomeChart"),
 
     {
         type:"pie",
         data:{
             labels: JSON.parse(localStorage.getItem('incomeNames')) || [],
             datasets:[{
-                data:JSON.parse(localStorage.getItem('incomeAmounts')) || [],
-            }],
-            backgroundColor: {colors}
+                backgroundColor: incomeColors,
+                data:JSON.parse(localStorage.getItem('incomeAmounts')) || []
+            }]
+           
             ,
-            borderColor: [
-            ],
+            borderColor: incomeColors,
             borderwidth: 1
         },
         options: {
@@ -145,15 +150,58 @@ let expenseChart = new Chart(document.getElementById("expenseChart").getContext(
 {
     type:"pie",
     data:{
-        labels: JSON.parse(localStorage.getItem('incomeNames')) || [],
+        labels: JSON.parse(localStorage.getItem('expenseNames')) || [],
         datasets:[{
-            data:JSON.parse(localStorage.getItem('incomeAmounts')) || [],
-        }],
-        backgroundColor:[]
+            
+            backgroundColor:expenseColors,
+            data:JSON.parse(localStorage.getItem('expenseAmounts')) || [],
+        }]
 
         ,
-        borderColor: [
-        ]
+        borderColor: expenseColors
+    },
+    options: {
+        maintainAspectRatio: false,
+    }
+
+}
+);
+
+let debtChart = new Chart(document.getElementById("debtChart").getContext("2d"),
+{
+    type:"pie",
+    data:{
+        labels: JSON.parse(localStorage.getItem('debtName')) || [],
+        datasets:[{
+            backgroundColor:debtColors,
+            data:JSON.parse(localStorage.getItem('debtAmount')) || [],
+        }]
+        
+
+        ,
+        borderColor: debtColors
+    },
+    options: {
+        maintainAspectRatio: false,
+    }
+
+}
+
+);
+
+let debtChart2 = new Chart(document.getElementById("debtChart2").getContext("2d"),
+{
+    type:"bar",
+    data:{
+        labels: JSON.parse(localStorage.getItem('debtName')) || [],
+        datasets:[{
+            backgroundColor:debtColors2,
+            data:JSON.parse(localStorage.getItem('debtRate')) || [],
+        }],
+       
+
+        
+        borderColor: debtColors2
     },
     options: {
         maintainAspectRatio: false,

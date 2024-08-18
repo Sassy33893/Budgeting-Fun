@@ -29,6 +29,7 @@
         const [debtType, setDebtType] = useState("");
         const [debtInt, setDebtInt] = useState("");
         const [pg, setPg] = useState(0);
+        const [compoundPeriod, setcompoundPeriod] = useState("");
 
         document.querySelectorAll('.dropdown-item').forEach(item => {
           item.addEventListener('click', function(event) {
@@ -50,6 +51,7 @@
             handleNext();
           }  
         };
+        
         const handleSkip = () => {
           if (pg !== 2) {
             setPg(pg + 1);
@@ -57,23 +59,36 @@
             window.location.href = "spread.html";
           }
         };
+        const getInterest = () => {
+          if (debtType === "simple-interest"){
+            calcSim();}
+          else{
+            calcComp();}
+        };
+
+        const calcSim = () => {
+          return debtAmount * debtInt;
+        };
+        const calcComp = () => {
+          return debtAmount * (((1 + debtInt) ** compoundPeriod) - 1)
+        };
         const handleAddIncome = () => {
-          if (!isNaN(incomeAmount) && incomeAmount.trim() !== "") {
+          if (!isNaN(incomeAmount) && incomeAmount.trim() !== "" && incomeName.trim() !== "") {
             addIncome(incomeName, incomeAmount);
             setIncomeName(""); 
             setIncomeAmount("");
           } else {
-            alert("Please enter a valid income amount.");  
+            alert("Invalid Value(s).");  
           }
         };
 
         const handleAddExpense = () => {
-          if (!isNaN(expenseAmount) && expenseAmount.trim() !== "") {
+          if (!isNaN(expenseAmount) && expenseAmount.trim() !== "" && expenseName.trim() !== "") {
             addExpense(expenseName,expenseAmount);
             setExpenseName(""); 
             setExpenseAmount("") ;
           } else {
-            alert("Please enter a valid expense amount.");  
+            alert("Invalid Value(s).");  
           }
         };
         const handleAddDebt = () =>{
@@ -82,6 +97,13 @@
           setDebtAmount("");
           setDebtInt("");
           setDebtType("");
+          if (!isNaN(debtAmount) && !isNaN(debtInt) && debtAmount.trim() !== "" && debtName.trim() !== ""&& debtInt.trim() !== "" && debtType.trim() !== "") {
+            addDebt(debtName, debtAmount, debtInt, debtType);
+            setExpenseName(""); 
+            setExpenseAmount("") ;
+          } else {
+            alert("Invalid Value(s).");  
+          }
 
         }
 
@@ -117,8 +139,11 @@
             <div className={`center-items-v q1 ${pg === 0 ? 'd-block' : 'd-none'}`}>  
               <form id="questionBox">  
                 <div className="center-items">  
-                  <h1 id="question-start" className="display-3">{questions[0]}</h1>  
+                  <h1 id="question-start" className="display-3">{questions[0]}</h1>
                 </div>  
+                <div className="center-items">  
+                  <p>Please do not add any symboles like "$","%" and "," or any spaces in any of these input fields.</p>
+                </div>
                 <div className="center-items">  
                   <input  
                     type="text"  
@@ -173,6 +198,9 @@
                 <div className="center-items">  
                   <h1 id="question-start" className="display-3">{questions[1]}</h1>  
                 </div>  
+                <div className="center-items">  
+                  <p>Please do not add any symboles like "$","%" and "," or any spaces in any of these input fields.</p>
+                </div>
                 <div className="center-items">  
                   <input  
                     type="text"  
@@ -229,6 +257,9 @@
                   <h1 id="question-start" className="display-3">{questions[2]}</h1>  
                 </div>  
                 <div className="center-items">  
+                  <p>Please do not add any symboles like "$","%" and "," or any spaces in any of these input fields.</p>
+                </div>
+                <div className="center-items">  
                   <input  
                     type="text"  
                     id="debt-name"  
@@ -272,6 +303,19 @@
                     className="form-control mb-3 start-questions"  
                   />
                 </div>
+
+                <div className="center-items">
+                  <input  
+                    type="text"  
+                    id="compoundPeriod"  
+                    value={compoundPeriod}  
+                    onChange={(e) => setcompoundPeriod(e.target.value)}  
+                    onKeyDown={handleKeyDown}  
+                    placeholder="Enter your compound period (if applicable)"  
+                    className="form-control mb-3 start-questions"  
+                  />
+                </div>
+                
                 
                 
 

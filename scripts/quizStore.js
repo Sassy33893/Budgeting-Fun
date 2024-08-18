@@ -108,7 +108,7 @@ class Debt {
     }
 
     calcSimpleInt(time) {
-        return this.amount * this.interest * time;
+        return this.amount * this.interest;
     }
 
     calcCompoundInt(compoundPeriod) {

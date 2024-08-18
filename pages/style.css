@@ -43,8 +43,7 @@ table {
 }
 
 .goal {
-    background-color: gold;
-    color:black;
+    background-color: rgb(96, 0, 0);
     width:100%;
     padding:20px;
     margin-bottom:3px;
