@@ -80,6 +80,7 @@
         }
 
         const handleNext = () => {
+          
           if (pg === 0) {
             if (!isNaN(incomeAmount) && incomeAmount.trim() !== "") {
               handleAddIncome();
@@ -97,7 +98,7 @@
           } else if (pg === 2) {
             if (!isNaN(debtAmount) && debtAmount.trim() !== "") {
               handleAddDebt();
-              window.display.href = "spread.html";
+              window.location.href = "spread.html";
             } else {
               alert("Please enter a valid expense amount.");
             }
@@ -223,22 +224,25 @@
                     onKeyDown={handleKeyDown}  
                     placeholder="Enter your debt amount"  
                     className="form-control mb-3"  
-                  />  
+                  />
+                </div>
+                <div className="center-items"> 
                   <button 
                     type="button" 
-                    className="btn btn-primary"
-                    onClick={handleAddDebt}
+                    className="btn btn-secondary mr"
+                    onClick={handleAddExpense}
                   >
                     Add Another +
                   </button>
                   <button 
                     type="button" 
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                     onClick={handleNext}
                   >
                     Next
                   </button>
                 </div>  
+                  
               </form>  
             </div>
           </div>  

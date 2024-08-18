@@ -118,7 +118,7 @@ let incomeChart = new Chart(document.getElementById("incomeChart"),
 );
 
 incomeChart.resize(200, 400);
-console.log("asdasd")
+incomeChart.update('resize');
 
 //myLineChart.resize(width, height);
 /*
